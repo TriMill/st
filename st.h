@@ -141,3 +141,4 @@ extern unsigned int defaultfg;
 extern unsigned int defaultbg;
 extern const int boxdraw, boxdraw_bold, boxdraw_braille;
 extern MouseKey mkeys[];
+extern float alpha;
