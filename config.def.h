@@ -168,6 +168,12 @@ static MouseShortcut mshortcuts[] = {
 	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
 };
 
+MouseKey mkeys[] = {
+	/* button				mask		function		argument */
+	{ Button4,				ShiftMask,	kscrollup,		{.i =  3} },
+	{ Button5,				ShiftMask,	kscrolldown,	{.i =  3} },
+};
+
 /* Internal keyboard shortcuts. */
 #define MODKEY Mod1Mask
 #define TERMMOD (ControlMask|ShiftMask)
