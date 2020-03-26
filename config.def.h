@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Inconsolata:pixelsize=34:antialias=true:autohint=true";
+static char *font = "Icons,Inconsolata,DejaVu Sans Mono,JoyPixels,Symbola:pixelsize=34:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -62,11 +62,11 @@ static unsigned int cursorthickness = 2;
  *    Bold affects lines thickness if boxdraw_bold is not 0. Italic is ignored.
  * 0: disable (render all U25XX glyphs normally from the font).
  */
-const int boxdraw = 0;
+const int boxdraw = 1;
 const int boxdraw_bold = 0;
 
 /* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
-const int boxdraw_braille = 0;
+const int boxdraw_braille = 1;
 
 /*
  * bell volume. It must be a value between -100 and 100. Use 0 for disabling
@@ -95,31 +95,35 @@ char *termname = "st-256color";
 unsigned int tabspaces = 4;
 
 /* bg opacity */
-float alpha = 0.87;
+float alpha = 0.86;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"#191a1c",
-	"#c02b2b",
-	"#11cc16",
-	"#f08010",
-	"#1890f0",
-	"#9b48b6",
-	"#14b898",
-	"#d2d7da",
+	"#1d2021",	// dark:0:hard
+	"#c82022",
+	"#7b931f",
+	"#d19127",
+	"#3781a1",
+	"#af6493",
+	"#5baa8e",
+	"#d2c5a4",	// light:2
 
 	/* 8 bright colors */
-	"#76797d",
-	"#ed2020",
-	"#40e860",
-	"#f0d044",
-	"#4cacff",
-	"#cc4ce0",
-	"#16c8d4",
-	"#ffffff",
+	"#615c59",	// dark:3
+	"#fb4934",
+	"#90b32e",
+	"#fbb62e",
+	"#77acb7",
+	"#d287a1",
+	"#7bc18e",
+	"#f7f5d9",	// light:0:hard
 
 	[255] = 0,
+	
+	"#d2c5a4",	// light:2
+	"#090a0b",	// background
+	"#615c59",	// dark:3
 };
 
 
@@ -127,10 +131,10 @@ static const char *colorname[] = {
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 7;
-unsigned int defaultbg = 0;
-static unsigned int defaultcs = 7;
-static unsigned int defaultrcs = 8;
+unsigned int defaultfg = 256;
+unsigned int defaultbg = 257;
+static unsigned int defaultcs = 256;
+static unsigned int defaultrcs = 258;
 
 /*
  * Default shape of cursor
@@ -182,6 +186,8 @@ MouseKey mkeys[] = {
 	/* button				mask		function		argument */
 	{ Button4,				ShiftMask,	kscrollup,		{.i =  3} },
 	{ Button5,				ShiftMask,	kscrolldown,	{.i =  3} },
+	// { Button6,				ShiftMask,	kscrollup,		{.i =  15} },
+	// { Button7,				ShiftMask,	kscrolldown,	{.i =  15} },
 };
 
 /* Internal keyboard shortcuts. */
@@ -202,12 +208,17 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+	{ MODKEY,               XK_c,           clipcopy,       {.i =  0} },
+	{ MODKEY,               XK_v,           clippaste,      {.i =  0} },
+	{ MODKEY,               XK_y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 
 	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
-	{ MODKEY,   	        XK_k,     		kscrollup,      {.i = -1} },
-	{ MODKEY,            	XK_j,  			kscrolldown,    {.i = -1} },
+	{ MODKEY,   	        XK_k,     		kscrollup,      {.i = 3} },
+	{ MODKEY,            	XK_j,  			kscrolldown,    {.i = 3} },
+	{ MODKEY,   	        XK_u,     		kscrollup,      {.i = 15} },
+	{ MODKEY,            	XK_d,  			kscrolldown,    {.i = 15} },
 
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 };
